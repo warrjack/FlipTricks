@@ -24,6 +24,8 @@ public class PlayerController : MonoBehaviour
 	private float gravityForce = 0.8f;
 	private float maxSpeed = 20.0f;
 	private bool isGrounded = true;
+	private bool trickSetup = false;
+	private bool canOllie = true;
 
 	//Grind Variables
 	private bool canGrind = false;
@@ -71,7 +73,23 @@ public class PlayerController : MonoBehaviour
         }
 
         //Jump
-        if (isGrounded)
+        if (Input.GetKey(KeyCode.S))
+        {
+        	trickSetup = true;
+        }
+        else if (Input.GetKeyUp(KeyCode.S))
+        {
+        	if (canOllie && isGrounded)
+        	{
+		        rb.AddForce(0, jumpForce, 0, ForceMode.Impulse);
+		        animator.SetTrigger("Ollie");
+		        trickText.text = "Ollie";
+        	}
+        	trickSetup = false;
+        	canOllie = true;
+        }
+        //Tricks
+        if (isGrounded && trickSetup)
         {
 
         	//Kickflip
@@ -80,35 +98,37 @@ public class PlayerController : MonoBehaviour
 	        	rb.AddForce(0, jumpForce, 0, ForceMode.Impulse);
 	        	animator.SetTrigger("Kickflip");
 	        	trickText.text = "Kickflip";
+	        	canOllie = false;
+        		trickSetup = false;
 	        }
 	        //Pop Shove It
-	        if (Input.GetKeyDown(KeyCode.DownArrow))
+	        if (Input.GetKeyDown(KeyCode.A))
 	        {
 	        	rb.AddForce(0, jumpForce, 0, ForceMode.Impulse);
 	        	animator.SetTrigger("Pop Shove It");
 	        	trickText.text = "Pop Shove It";
+	        	canOllie = false;
+        		trickSetup = false;
 	        }
-	        //Ollie
-	        if (Input.GetKeyDown(KeyCode.S))
-	        {
-	        	rb.AddForce(0, jumpForce, 0, ForceMode.Impulse);
-	        	animator.SetTrigger("Ollie");
-	        	trickText.text = "Ollie";
-	        }
+
 	        //Impossible
-	        if(Input.GetKeyDown(KeyCode.W))
+	        if(Input.GetKeyDown(KeyCode.UpArrow))
 	        {
 	        	rb.AddForce(0, jumpForce, 0, ForceMode.Impulse);
 	        	animator.SetTrigger("Impossible");
 	        	trickText.text = "Impossible";
+	        	canOllie = false;
+        		trickSetup = false;
 	        }
 
 	        //Treflip
-	        if(Input.GetKeyDown(KeyCode.UpArrow))
+	        if(Input.GetKeyDown(KeyCode.DownArrow))
 	        {
 	        	rb.AddForce(0, jumpForce, 0, ForceMode.Impulse);
 	        	animator.SetTrigger("Treflip");
 	        	trickText.text = "Treflip";
+	        	canOllie = false;
+        		trickSetup = false;
 	        }
         }
 
@@ -152,7 +172,6 @@ public class PlayerController : MonoBehaviour
         rb.angularVelocity = Vector3.zero;
         rb.AddForce(0, -gravityForce, 0);
     }
-
     void OnTriggerEnter(Collider collider)
     {
     	if (collider.gameObject.layer == 8)
