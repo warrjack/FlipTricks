@@ -10,6 +10,13 @@ An awesome 2.5D skateboarding game made with Unity.
 
 # Download
 You can download the project the following ways:
-* [Download Zip File](
+* [Download Zip File](https://github.com/warrjack/FlipTricks/archive/master.zip)
+* Clone the project locally:
+
+
+I strongly recommend against using any `<blink>` tags.
+
+I wish SmartyPants used named entities like `&mdash;`
+instead of decimal-encoded entites like `&#8212;`.
 
 Version 0.3.2
