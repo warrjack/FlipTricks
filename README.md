@@ -12,7 +12,7 @@ An awesome 2.5D skateboarding game made with Unity.
 You can download the project the following ways:
 * [Download Zip File](https://github.com/warrjack/FlipTricks/archive/master.zip)
 * Clone the project locally:
-`https://github.com/warrjack/FlipTricks.git`
+`git clone https://github.com/warrjack/FlipTricks.git`
 
 # Screenshots
 
